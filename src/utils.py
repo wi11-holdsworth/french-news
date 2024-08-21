@@ -17,15 +17,15 @@ def fmt_entry(entry: dict) -> dict[Field, str]:
     return out
 
 
-def structure_entry(fmt: dict[Field, str]) -> tuple:
+def structure_entry(fmt: dict[Field, str]) -> str:
     return (
-        f"## {fmt[Field.TITLE]}\n",
-        fmt[Field.MEDIA_THUMBNAIL],
-        f"> {fmt[Field.SUMMARY]}\n"
-        + f"### {fmt[Field.LINK]}\n"
-        + f"-# {fmt[Field.PUBLISHED]}\n",
+        f"## {fmt[Field.TITLE]}\n"
+        + f"> {fmt[Field.SUMMARY]}\n\n"
+        + f"📰 {fmt[Field.LINK]}\n"
+        + f"🖼 {fmt[Field.MEDIA_THUMBNAIL]}\n\n"
+        + f"-# {fmt[Field.PUBLISHED]}\n"
     )
 
 
-def entry_to_msg(entry: dict) -> tuple:
+def entry_to_msg(entry: dict) -> str:
     return structure_entry(fmt_entry(entry))

@@ -1,4 +1,7 @@
 .env
+flake.nix
+flake.lock
 .direnv/
-__pycache__
-.vscode
+.venv/
+__pycache__/
+.vscode/

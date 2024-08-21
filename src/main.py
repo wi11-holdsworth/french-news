@@ -36,7 +36,7 @@ class MyClient(discord.Client):
             # now display all the entries
 
             for entry in entries[:max_entries]:
-                await self.channel.send("\n".join(msg for msg in entry_to_msg(entry)))
+                await self.channel.send(entry_to_msg(entry))
 
         # TODO: can we kill less violently?
 

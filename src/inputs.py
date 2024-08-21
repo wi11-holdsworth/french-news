@@ -13,7 +13,10 @@ class Field(Enum):
         lambda x: f"Publié le "
         + format_datetime(parser.parse(timestr=x), locale="fr_FR"),
     )
-    MEDIA_THUMBNAIL = (["media_thumbnail", "media_content"], lambda x: f"{x[0]['url']}")
+    MEDIA_THUMBNAIL = (
+        ["media_thumbnail", "media_content"],
+        lambda x: f"[La vignette]({x[0]['url']})",
+    )
 
     def __init__(self, aliases: list[str], fmt: Callable = lambda x: x):
         self.aliases: list[str] = aliases

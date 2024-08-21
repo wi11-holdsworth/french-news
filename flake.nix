@@ -12,20 +12,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in {
       devShells.default = pkgs.mkShell {
-        packages = with pkgs;
-          [
-            python312
-            alejandra
-          ]
-          ++ (
-            with python312Packages; [
-              discordpy
-              python-dotenv
-              feedparser
-              babel
-              python-dateutil
-            ]
-          );
+        packages = with pkgs; [python312 python312Packages.pip];
       };
     });
 }
