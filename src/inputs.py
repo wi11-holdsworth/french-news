@@ -23,10 +23,10 @@ class Field(Enum):
 SOURCES: dict[str, dict] = {
     "Le Monde": {
         "url": "https://www.lemonde.fr/rss/une.xml",
-        "max_fetch": 2,
+        "max_fetch": 3,
     },
     "France 24": {
         "url": "https://www.france24.com/fr/france/rss",
-        "max_fetch": 2,
+        "max_fetch": 3,
     },
 }

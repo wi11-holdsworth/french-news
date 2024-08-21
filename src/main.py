@@ -1,24 +1,28 @@
 import discord
 import os
-import time
 from utils import fetch_entries, entry_to_msg
-from constants import SOURCES
+from inputs import SOURCES
 from dotenv import load_dotenv
 
 load_dotenv()
 
 
 class MyClient(discord.Client):
+
+    # TODO: this technically can run more than once, is this going to be
+    # a problem?
+
     async def on_ready(self):
         print(f"Logged in as {self.user} (ID: {self.user.id})")
         print("------")
 
-        self.channel = self.get_channel(1267471756604739665)
+        self.channel = self.get_channel(int(os.getenv("CHANNEL_ID")))
+        self.guild = self.get_guild(int(os.getenv("GUILD_ID")))
+        self.role = discord.utils.get(self.guild.roles, name="news")
+
+        await self.channel.send(f"Voici les nouvelles {self.role.mention}!")
 
         for name, opts in SOURCES.items():
-            # try to avoid getting rate-limited
-
-            time.sleep(3)
 
             # fetch the entries from the source
 
@@ -32,19 +36,12 @@ class MyClient(discord.Client):
             # now display all the entries
 
             for entry in entries[:max_entries]:
-                for msg in entry_to_msg(entry):
-                    await self.channel.send(msg)
-
-        # all done!
-
-        await self.channel.send("goodbye until next time!")
+                await self.channel.send("\n".join(msg for msg in entry_to_msg(entry)))
 
         # TODO: can we kill less violently?
 
         exit(0)
 
 
-intents = discord.Intents.default()
-
-client = MyClient(intents=intents)
-client.run(os.getenv("BOT_TOKEN", ""))
+client = MyClient(intents=discord.Intents.default())
+client.run(os.getenv("BOT_TOKEN"))
