@@ -18,7 +18,7 @@ class MyClient(discord.Client):
 
         self.channel = self.get_channel(int(os.getenv("CHANNEL_ID")))
         self.guild = self.get_guild(int(os.getenv("GUILD_ID")))
-        self.role = discord.utils.get(self.guild.roles, name="News Notifications")
+        self.role = discord.utils.get(self.guild.roles, name=os.getenv("ROLE"))
 
         await self.channel.send(f"Voici les nouvelles {self.role.mention}!")
 
